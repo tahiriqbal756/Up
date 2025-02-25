@@ -15,7 +15,7 @@
             color: white;
             flex-direction: column;
         }
-        .login-container, .dialog-box, .loading-screen, .main-content {
+        .container {
             text-align: center;
             background: #000;
             padding: 20px;
@@ -57,11 +57,6 @@
             background: #00ffcc;
             color: black;
         }
-        .dialog-box p {
-            color: yellow;
-            font-weight: bold;
-            font-size: 16px;
-        }
         .loading-screen {
             font-size: 20px;
             color: #00ffcc;
@@ -73,8 +68,14 @@
 </head>
 <body>
 
-    <!-- Login Box -->
-    <div class="login-container" id="loginContainer">
+    <!-- First Timer Before Login -->
+    <div class="container loading-screen" id="preLoginTimer">
+        <h2>Loading, please wait...</h2>
+        <p id="preTimer">10</p>
+    </div>
+
+    <!-- Login Page -->
+    <div class="container" id="loginContainer">
         <h2 id="loginTitle">HACKER TF</h2>
         <input type="email" id="email" placeholder="Enter Email" required>
         <input type="password" id="password" placeholder="Enter Password" required>
@@ -83,7 +84,7 @@
     </div>
 
     <!-- Dialog Box (After Login) -->
-    <div class="dialog-box" id="dialogBox">
+    <div class="container dialog-box" id="dialogBox">
         <h2>Welcome To My Official Website...</h2>
         <p id="devMessage">Developer by HACKER TF</p>
         <button onclick="contactWhatsApp()">WhatsApp Contact</button>
@@ -92,21 +93,34 @@
         <button id="startBtn" onclick="startWebsite()">Start Website</button>
     </div>
 
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
+    <!-- Second Timer Before Website Content -->
+    <div class="container loading-screen" id="loadingScreen">
         <h2>Loading, please wait...</h2>
         <p id="timer">10</p>
     </div>
 
     <!-- Main Content (After Timer) -->
-    <div class="main-content" id="mainContent">
+    <div class="container main-content" id="mainContent">
         <h2>Welcome to the Main Website!</h2>
         <p>This is your final page after the loading screen.</p>
     </div>
 
     <script>
-        // Show Login Screen on Load
-        document.getElementById("loginContainer").style.display = "block";
+        // First Timer Before Login Page
+        document.getElementById("preLoginTimer").style.display = "block";
+        var preTimeLeft = 10;
+
+        function preCountdown() {
+            if (preTimeLeft > 0) {
+                document.getElementById("preTimer").innerText = preTimeLeft;
+                preTimeLeft--;
+                setTimeout(preCountdown, 1000);
+            } else {
+                document.getElementById("preLoginTimer").style.display = "none";
+                document.getElementById("loginContainer").style.display = "block";
+            }
+        }
+        preCountdown();
 
         function checkLogin() {
             var email = document.getElementById("email").value;
