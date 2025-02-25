@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - My Website</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #121212;
+            color: white;
+        }
+        .login-container {
+            background: #000;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            width: 280px;
+        }
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #00ffcc;
+            text-transform: uppercase;
+        }
+        input {
+            display: block;
+            width: 90%;
+            margin: 8px auto;
+            padding: 8px;
+            border: 2px solid #00ffcc;
+            border-radius: 5px;
+            background: #222;
+            color: white;
+            font-size: 14px;
+        }
+        input::placeholder {
+            color: #bbb;
+        }
+        button {
+            background-color: #00ffcc;
+            color: black;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #009988;
+        }
+        #error-message {
+            color: red;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .dialog-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #000;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            width: 300px;
+        }
+        .dialog-box h2 {
+            color: #00ffcc;
+        }
+        .dialog-box button {
+            margin: 5px;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            background: #00ffcc;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .dialog-box button:hover {
+            background: #009988;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Enter Email" required>
+        <input type="password" id="password" placeholder="Enter Password" required>
+        <button onclick="checkLogin()">Login</button>
+        <p id="error-message"></p>
+    </div>
+
+    <script>
+        function checkLogin() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            if (email === "blackhacker79866@gmail.com" && password === "blackhacker756") {
+                document.body.innerHTML = '<div class="dialog-box"><h2>Welcome To My Official Website...</h2>' +
+                                          '<button onclick="contactWhatsApp()">WhatsApp Contact</button>' +
+                                          '<button onclick="contactEmail()">Email Contact</button>' +
+                                          '<button onclick="contactTelegram()">Telegram Contact</button>' +
+                                          '<button id="startBtn" onclick="startWebsite()">Start Website</button></div>';
+                document.querySelector(".dialog-box").style.display = "block";
+                
+                var startBtn = document.getElementById("startBtn");
+                startBtn.style.backgroundColor = "blue";
+                startBtn.style.color = "red";
+                startBtn.style.fontSize = "16px";
+                startBtn.style.fontWeight = "bold";
+                startBtn.innerHTML = "I'm a Professional Hacker ..";
+
+                setTimeout(function() {
+                    startBtn.style.backgroundColor = "red";
+                    startBtn.style.color = "blue";
+                    startBtn.innerHTML = "I'm a Professional Hacker ..";
+                }, 3000);
+            } else {
+                document.getElementById("error-message").textContent = "Invalid Email or Password!";
+            }
+        }
+
+        function contactWhatsApp() {
+            window.location.href = "https://wa.me/yourwhatsappnumber";
+        }
+
+        function contactEmail() {
+            window.location.href = "mailto:your-email@example.com";
+        }
+
+        function contactTelegram() {
+            window.location.href = "https://t.me/tayyabexport756";
+        }
+
+        function startWebsite() {
+            alert("Website Starting...");
+        }
+    </script>
+</body>
+</html>
