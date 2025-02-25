@@ -86,11 +86,11 @@
             padding: 10px;
             font-size: 14px;
             font-weight: bold;
-            background: #00ffcc;
             color: black;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.5s ease-in-out;
         }
         .dialog-box button:hover {
             background: #009988;
@@ -113,7 +113,7 @@
         <button onclick="contactEmail()">Email Contact</button>
         <button onclick="contactTelegram()">Telegram Contact</button>
         <button id="startBtn" onclick="startWebsite()">Start Website</button>
-        <button id="animatedBtn" onclick="whatsappRedirect()">WhatsApp Contact</button>
+        <button id="whatsappBtn" onclick="contactWhatsApp()">WhatsApp Contact</button>
     </div>
 
     <script>
@@ -147,10 +147,18 @@
             alert("Website Starting...");
         }
 
-        // Color Changing Animation for Login Button & Title
+        function contactWhatsApp() {
+            var phoneNumber = "923321709972"; // Your WhatsApp Number
+            var message = "Hello Developer"; // Pre-filled Message
+            var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
+            window.location.href = url;
+        }
+
+        // Color Changing Animation for Login Button, Title & WhatsApp Button
         function startColorChange() {
             var loginBtn = document.getElementById("loginBtn");
             var loginTitle = document.getElementById("loginTitle");
+            var whatsappBtn = document.getElementById("whatsappBtn");
             var colors = ["red", "blue", "green", "purple", "orange", "pink"];
             var index = 0;
 
@@ -158,6 +166,8 @@
                 loginBtn.style.backgroundColor = colors[index];
                 loginBtn.style.color = "white";
                 loginTitle.style.color = colors[index];
+                whatsappBtn.style.backgroundColor = colors[index];
+                whatsappBtn.style.color = "white";
                 index = (index + 1) % colors.length;
             }, 1000);
         }
