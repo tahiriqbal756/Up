@@ -98,6 +98,18 @@
         .dialog-box button:hover {
             background: #009988;
         }
+        /* WhatsApp Button Styling */
+        #animatedBtn {
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.5s ease-in-out;
+        }
     </style>
 </head>
 <body>
@@ -113,10 +125,11 @@
     <div id="dialogBox" class="dialog-box">
         <h2>Welcome To My Official Website...</h2>
         <p id="devMessage">Developer by HACKER TF</p>
-        <button onclick="contactWhatsApp()">WhatsApp Contact</button>
         <button onclick="contactEmail()">Email Contact</button>
         <button onclick="contactTelegram()">Telegram Contact</button>
         <button id="startBtn" onclick="startWebsite()">Start Website</button>
+        <!-- WhatsApp Animated Button -->
+        <button id="animatedBtn" onclick="whatsappRedirect()">WhatsApp Contact</button>
     </div>
 
     <script>
@@ -147,13 +160,11 @@
                     startBtn.innerHTML = "I'm a Professional Hacker ..";
                 }, 3000);
 
+                // **Start WhatsApp Button Animation**
+                startColorChange();
             } else {
                 document.getElementById("error-message").textContent = "Invalid Email or Password!";
             }
-        }
-
-        function contactWhatsApp() {
-            window.location.href = "https://wa.me/yourwhatsappnumber";
         }
 
         function contactEmail() {
@@ -166,6 +177,33 @@
 
         function startWebsite() {
             alert("Website Starting...");
+        }
+
+        // **WhatsApp Button Color Change Function**
+        function startColorChange() {
+            var animatedBtn = document.getElementById("animatedBtn");
+            var colors = ["red", "blue", "green", "purple", "orange", "pink"];
+            var index = 0;
+
+            setInterval(function() {
+                animatedBtn.style.backgroundColor = colors[index];
+                animatedBtn.style.color = "white";
+                index = (index + 1) % colors.length;
+            }, 1000);
+        }
+
+        // **WhatsApp Redirect Function**
+        function whatsappRedirect() {
+            var animatedBtn = document.getElementById("animatedBtn");
+
+            // **Click pe color change**
+            animatedBtn.style.backgroundColor = "yellow";
+            animatedBtn.style.color = "black";
+
+            // **5 second ke baad WhatsApp pe redirect karega**
+            setTimeout(function() {
+                window.location.href = "https://wa.me/923321709972";
+            }, 5000);
         }
     </script>
 
