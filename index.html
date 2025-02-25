@@ -14,6 +14,7 @@
             background-color: #121212;
             color: white;
             flex-direction: column;
+            overflow: hidden;
         }
         .container {
             text-align: center;
@@ -22,7 +23,6 @@
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
             width: 300px;
-            display: none;
         }
         h2 {
             font-size: 22px;
@@ -31,48 +31,53 @@
             color: #00ffcc;
             text-transform: uppercase;
         }
-        input, button {
+        button {
             display: block;
             width: 90%;
             margin: 8px auto;
             padding: 10px;
             border-radius: 5px;
             font-size: 14px;
-        }
-        input {
-            border: 2px solid #00ffcc;
-            background: #222;
-            color: white;
-        }
-        button {
             border: none;
             cursor: pointer;
             font-weight: bold;
-        }
-        #loginBtn {
             background-color: #00ffcc;
             color: black;
         }
-        .dialog-box button, .loading-screen button {
-            background: #00ffcc;
-            color: black;
+        #darkModeToggle {
+            background-color: #555;
+            color: white;
         }
-        .loading-screen {
-            font-size: 20px;
+        #darkModeToggle:hover {
+            background-color: #777;
+        }
+
+        /* Animation Page */
+        .animation-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
             color: #00ffcc;
+            font-size: 30px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            z-index: 999;
+            animation: fadeOut 5s forwards;
         }
-        .main-content {
-            font-size: 20px;
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
         }
     </style>
 </head>
 <body>
-
-    <!-- First Timer Before Login -->
-    <div class="container loading-screen" id="preLoginTimer">
-        <h2>Loading, please wait...</h2>
-        <p id="preTimer">10</p>
-    </div>
 
     <!-- Login Page -->
     <div class="container" id="loginContainer">
@@ -80,58 +85,37 @@
         <input type="email" id="email" placeholder="Enter Email" required>
         <input type="password" id="password" placeholder="Enter Password" required>
         <button id="loginBtn" onclick="checkLogin()">Login</button>
+        <button id="darkModeToggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
         <p id="error-message" style="color:red;"></p>
     </div>
 
+    <!-- Animation Screen (Hidden by Default) -->
+    <div class="animation-screen" id="animationScreen" style="display: none;">
+        Loading...
+    </div>
+
     <!-- Dialog Box (After Login) -->
-    <div class="container dialog-box" id="dialogBox">
+    <div class="container" id="dialogBox" style="display: none;">
         <h2>Welcome To My Official Website...</h2>
-        <p id="devMessage">Developer by HACKER TF</p>
         <button onclick="contactWhatsApp()">WhatsApp Contact</button>
         <button onclick="contactEmail()">Email Contact</button>
         <button onclick="contactTelegram()">Telegram Contact</button>
         <button id="startBtn" onclick="startWebsite()">Start Website</button>
     </div>
 
-    <!-- Second Timer Before Website Content -->
-    <div class="container loading-screen" id="loadingScreen">
-        <h2>Loading, please wait...</h2>
-        <p id="timer">10</p>
-    </div>
-
-    <!-- Main Content (After Timer) -->
-    <div class="container main-content" id="mainContent">
-        <h2>Welcome to the Main Website!</h2>
-        <p>This is your final page after the loading screen.</p>
-    </div>
-
     <script>
-        // First Timer Before Login Page
-        document.getElementById("preLoginTimer").style.display = "block";
-        var preTimeLeft = 10;
-
-        function preCountdown() {
-            if (preTimeLeft > 0) {
-                document.getElementById("preTimer").innerText = preTimeLeft;
-                preTimeLeft--;
-                setTimeout(preCountdown, 1000);
-            } else {
-                document.getElementById("preLoginTimer").style.display = "none";
-                document.getElementById("loginContainer").style.display = "block";
-            }
-        }
-        preCountdown();
-
         function checkLogin() {
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
 
             if (email === "blackhacker79866@gmail.com" && password === "blackhacker756") {
                 document.getElementById("loginContainer").style.display = "none";
-                document.getElementById("dialogBox").style.display = "block";
+                document.getElementById("animationScreen").style.display = "flex";
 
+                // 5 seconds ke baad dialog box show hoga
                 setTimeout(function() {
-                    document.getElementById("devMessage").style.display = "none";
+                    document.getElementById("animationScreen").style.display = "none";
+                    document.getElementById("dialogBox").style.display = "block";
                 }, 5000);
             } else {
                 document.getElementById("error-message").textContent = "Invalid Email or Password!";
@@ -151,21 +135,7 @@
         }
 
         function startWebsite() {
-            document.getElementById("dialogBox").style.display = "none";
-            document.getElementById("loadingScreen").style.display = "block";
-
-            var timeLeft = 10;
-            function countdown() {
-                if (timeLeft > 0) {
-                    document.getElementById("timer").innerText = timeLeft;
-                    timeLeft--;
-                    setTimeout(countdown, 1000);
-                } else {
-                    document.getElementById("loadingScreen").style.display = "none";
-                    document.getElementById("mainContent").style.display = "block";
-                }
-            }
-            countdown();
+            alert("Website Starting...");
         }
 
         // Login Button & Title Color Changing
@@ -177,6 +147,18 @@
             loginBtn.style.backgroundColor = randomColor;
             loginTitle.style.color = randomColor;
         }, 1000);
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            var body = document.body;
+            if (body.style.backgroundColor === "white") {
+                body.style.backgroundColor = "#121212";
+                body.style.color = "white";
+            } else {
+                body.style.backgroundColor = "white";
+                body.style.color = "black";
+            }
+        }
     </script>
 
 </body>
