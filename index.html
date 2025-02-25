@@ -13,126 +13,119 @@
             height: 100vh;
             background-color: #121212;
             color: white;
+            flex-direction: column;
         }
-        .login-container {
+        .login-container, .dialog-box, .loading-screen, .main-content {
+            text-align: center;
             background: #000;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
-            text-align: center;
             width: 300px;
+            display: none;
         }
-        /* Animated Login Heading */
-        #loginTitle {
+        h2 {
             font-size: 22px;
             font-weight: bold;
             margin-bottom: 15px;
+            color: #00ffcc;
             text-transform: uppercase;
-            transition: color 0.5s ease-in-out;
         }
-        input {
+        input, button {
             display: block;
             width: 90%;
             margin: 8px auto;
             padding: 10px;
-            border: 2px solid #00ffcc;
             border-radius: 5px;
+            font-size: 14px;
+        }
+        input {
+            border: 2px solid #00ffcc;
             background: #222;
             color: white;
-            font-size: 14px;
         }
-        input::placeholder {
-            color: #bbb;
-        }
-        /* Animated Login Button */
-        #loginBtn {
-            padding: 10px;
-            font-size: 14px;
-            font-weight: bold;
+        button {
             border: none;
-            width: 100%;
-            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.5s ease-in-out;
-        }
-        #error-message {
-            color: red;
-            margin-top: 10px;
             font-weight: bold;
         }
-        .dialog-box {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #000;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
-            text-align: center;
-            width: 320px;
+        #loginBtn {
+            background-color: #00ffcc;
+            color: black;
         }
-        .dialog-box h2 {
-            color: #00ffcc;
+        .dialog-box button, .loading-screen button {
+            background: #00ffcc;
+            color: black;
         }
         .dialog-box p {
             color: yellow;
             font-weight: bold;
             font-size: 16px;
         }
-        .dialog-box button {
-            margin: 5px;
-            padding: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            color: black;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.5s ease-in-out;
+        .loading-screen {
+            font-size: 20px;
+            color: #00ffcc;
         }
-        .dialog-box button:hover {
-            background: #009988;
+        .main-content {
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
 
-    <div class="login-container">
+    <!-- Login Box -->
+    <div class="login-container" id="loginContainer">
         <h2 id="loginTitle">HACKER TF</h2>
         <input type="email" id="email" placeholder="Enter Email" required>
         <input type="password" id="password" placeholder="Enter Password" required>
         <button id="loginBtn" onclick="checkLogin()">Login</button>
-        <p id="error-message"></p>
+        <p id="error-message" style="color:red;"></p>
     </div>
 
-    <div id="dialogBox" class="dialog-box">
+    <!-- Dialog Box (After Login) -->
+    <div class="dialog-box" id="dialogBox">
         <h2>Welcome To My Official Website...</h2>
         <p id="devMessage">Developer by HACKER TF</p>
+        <button onclick="contactWhatsApp()">WhatsApp Contact</button>
         <button onclick="contactEmail()">Email Contact</button>
         <button onclick="contactTelegram()">Telegram Contact</button>
         <button id="startBtn" onclick="startWebsite()">Start Website</button>
-        <button id="whatsappBtn" onclick="contactWhatsApp()">WhatsApp Contact</button>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <h2>Loading, please wait...</h2>
+        <p id="timer">10</p>
+    </div>
+
+    <!-- Main Content (After Timer) -->
+    <div class="main-content" id="mainContent">
+        <h2>Welcome to the Main Website!</h2>
+        <p>This is your final page after the loading screen.</p>
     </div>
 
     <script>
+        // Show Login Screen on Load
+        document.getElementById("loginContainer").style.display = "block";
+
         function checkLogin() {
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
 
             if (email === "blackhacker79866@gmail.com" && password === "blackhacker756") {
-                document.querySelector(".login-container").style.display = "none";
+                document.getElementById("loginContainer").style.display = "none";
                 document.getElementById("dialogBox").style.display = "block";
 
                 setTimeout(function() {
                     document.getElementById("devMessage").style.display = "none";
                 }, 5000);
-
-                startColorChange();
             } else {
                 document.getElementById("error-message").textContent = "Invalid Email or Password!";
             }
+        }
+
+        function contactWhatsApp() {
+            window.location.href = "https://wa.me/923321709972?text=Hello%20Developer";
         }
 
         function contactEmail() {
@@ -144,33 +137,32 @@
         }
 
         function startWebsite() {
-            alert("Website Starting...");
+            document.getElementById("dialogBox").style.display = "none";
+            document.getElementById("loadingScreen").style.display = "block";
+
+            var timeLeft = 10;
+            function countdown() {
+                if (timeLeft > 0) {
+                    document.getElementById("timer").innerText = timeLeft;
+                    timeLeft--;
+                    setTimeout(countdown, 1000);
+                } else {
+                    document.getElementById("loadingScreen").style.display = "none";
+                    document.getElementById("mainContent").style.display = "block";
+                }
+            }
+            countdown();
         }
 
-        function contactWhatsApp() {
-            var phoneNumber = "923321709972"; // Your WhatsApp Number
-            var message = "Hello Developer"; // Pre-filled Message
-            var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
-            window.location.href = url;
-        }
-
-        // Color Changing Animation for Login Button, Title & WhatsApp Button
-        function startColorChange() {
+        // Login Button & Title Color Changing
+        setInterval(function() {
             var loginBtn = document.getElementById("loginBtn");
             var loginTitle = document.getElementById("loginTitle");
-            var whatsappBtn = document.getElementById("whatsappBtn");
-            var colors = ["red", "blue", "green", "purple", "orange", "pink"];
-            var index = 0;
-
-            setInterval(function() {
-                loginBtn.style.backgroundColor = colors[index];
-                loginBtn.style.color = "white";
-                loginTitle.style.color = colors[index];
-                whatsappBtn.style.backgroundColor = colors[index];
-                whatsappBtn.style.color = "white";
-                index = (index + 1) % colors.length;
-            }, 1000);
-        }
+            var colors = ["#00ffcc", "#ff0000", "#ffcc00", "#0099ff", "#ff00ff"];
+            var randomColor = colors[Math.floor(Math.random() * colors.length)];
+            loginBtn.style.backgroundColor = randomColor;
+            loginTitle.style.color = randomColor;
+        }, 1000);
     </script>
 
 </body>
