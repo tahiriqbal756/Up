@@ -22,12 +22,13 @@
             text-align: center;
             width: 300px;
         }
-        h2 {
+        /* Animated Login Heading */
+        #loginTitle {
             font-size: 22px;
             font-weight: bold;
             margin-bottom: 15px;
-            color: #00ffcc;
             text-transform: uppercase;
+            transition: color 0.5s ease-in-out;
         }
         input {
             display: block;
@@ -43,20 +44,16 @@
         input::placeholder {
             color: #bbb;
         }
-        button {
-            background-color: #00ffcc;
-            color: black;
+        /* Animated Login Button */
+        #loginBtn {
             padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
             border: none;
             width: 100%;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #009988;
+            transition: background-color 0.5s ease-in-out;
         }
         #error-message {
             color: red;
@@ -98,27 +95,15 @@
         .dialog-box button:hover {
             background: #009988;
         }
-        /* WhatsApp Button Styling */
-        #animatedBtn {
-            padding: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-            transition: background-color 0.5s ease-in-out;
-        }
     </style>
 </head>
 <body>
 
     <div class="login-container">
-        <h2>Login</h2>
+        <h2 id="loginTitle">HACKER TF</h2>
         <input type="email" id="email" placeholder="Enter Email" required>
         <input type="password" id="password" placeholder="Enter Password" required>
-        <button onclick="checkLogin()">Login</button>
+        <button id="loginBtn" onclick="checkLogin()">Login</button>
         <p id="error-message"></p>
     </div>
 
@@ -128,7 +113,6 @@
         <button onclick="contactEmail()">Email Contact</button>
         <button onclick="contactTelegram()">Telegram Contact</button>
         <button id="startBtn" onclick="startWebsite()">Start Website</button>
-        <!-- WhatsApp Animated Button -->
         <button id="animatedBtn" onclick="whatsappRedirect()">WhatsApp Contact</button>
     </div>
 
@@ -141,26 +125,10 @@
                 document.querySelector(".login-container").style.display = "none";
                 document.getElementById("dialogBox").style.display = "block";
 
-                // **5 second ke baad message hide hoga**
                 setTimeout(function() {
                     document.getElementById("devMessage").style.display = "none";
                 }, 5000);
 
-                // **Button Style Change Animation**
-                var startBtn = document.getElementById("startBtn");
-                startBtn.style.backgroundColor = "blue";
-                startBtn.style.color = "red";
-                startBtn.style.fontSize = "16px";
-                startBtn.style.fontWeight = "bold";
-                startBtn.innerHTML = "I'm a Professional Hacker ..";
-
-                setTimeout(function() {
-                    startBtn.style.backgroundColor = "red";
-                    startBtn.style.color = "blue";
-                    startBtn.innerHTML = "I'm a Professional Hacker ..";
-                }, 3000);
-
-                // **Start WhatsApp Button Animation**
                 startColorChange();
             } else {
                 document.getElementById("error-message").textContent = "Invalid Email or Password!";
@@ -179,31 +147,19 @@
             alert("Website Starting...");
         }
 
-        // **WhatsApp Button Color Change Function**
+        // Color Changing Animation for Login Button & Title
         function startColorChange() {
-            var animatedBtn = document.getElementById("animatedBtn");
+            var loginBtn = document.getElementById("loginBtn");
+            var loginTitle = document.getElementById("loginTitle");
             var colors = ["red", "blue", "green", "purple", "orange", "pink"];
             var index = 0;
 
             setInterval(function() {
-                animatedBtn.style.backgroundColor = colors[index];
-                animatedBtn.style.color = "white";
+                loginBtn.style.backgroundColor = colors[index];
+                loginBtn.style.color = "white";
+                loginTitle.style.color = colors[index];
                 index = (index + 1) % colors.length;
             }, 1000);
-        }
-
-        // **WhatsApp Redirect Function**
-        function whatsappRedirect() {
-            var animatedBtn = document.getElementById("animatedBtn");
-
-            // **Click pe color change**
-            animatedBtn.style.backgroundColor = "yellow";
-            animatedBtn.style.color = "black";
-
-            // **5 second ke baad WhatsApp pe redirect karega**
-            setTimeout(function() {
-                window.location.href = "https://wa.me/923321709972";
-            }, 5000);
         }
     </script>
 
