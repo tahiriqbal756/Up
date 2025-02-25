@@ -20,7 +20,7 @@
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
             text-align: center;
-            width: 280px;
+            width: 300px;
         }
         h2 {
             font-size: 22px;
@@ -33,7 +33,7 @@
             display: block;
             width: 90%;
             margin: 8px auto;
-            padding: 8px;
+            padding: 10px;
             border: 2px solid #00ffcc;
             border-radius: 5px;
             background: #222;
@@ -74,15 +74,20 @@
             border-radius: 8px;
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
             text-align: center;
-            width: 300px;
+            width: 320px;
         }
         .dialog-box h2 {
             color: #00ffcc;
         }
+        .dialog-box p {
+            color: yellow;
+            font-weight: bold;
+            font-size: 16px;
+        }
         .dialog-box button {
             margin: 5px;
-            padding: 8px;
-            font-size: 12px;
+            padding: 10px;
+            font-size: 14px;
             font-weight: bold;
             background: #00ffcc;
             color: black;
@@ -96,6 +101,7 @@
     </style>
 </head>
 <body>
+
     <div class="login-container">
         <h2>Login</h2>
         <input type="email" id="email" placeholder="Enter Email" required>
@@ -104,19 +110,30 @@
         <p id="error-message"></p>
     </div>
 
+    <div id="dialogBox" class="dialog-box">
+        <h2>Welcome To My Official Website...</h2>
+        <p id="devMessage">Developer by HACKER TF</p>
+        <button onclick="contactWhatsApp()">WhatsApp Contact</button>
+        <button onclick="contactEmail()">Email Contact</button>
+        <button onclick="contactTelegram()">Telegram Contact</button>
+        <button id="startBtn" onclick="startWebsite()">Start Website</button>
+    </div>
+
     <script>
         function checkLogin() {
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
 
             if (email === "blackhacker79866@gmail.com" && password === "blackhacker756") {
-                document.body.innerHTML = '<div class="dialog-box"><h2>Welcome To My Official Website...</h2>' +
-                                          '<button onclick="contactWhatsApp()">WhatsApp Contact</button>' +
-                                          '<button onclick="contactEmail()">Email Contact</button>' +
-                                          '<button onclick="contactTelegram()">Telegram Contact</button>' +
-                                          '<button id="startBtn" onclick="startWebsite()">Start Website</button></div>';
-                document.querySelector(".dialog-box").style.display = "block";
-                
+                document.querySelector(".login-container").style.display = "none";
+                document.getElementById("dialogBox").style.display = "block";
+
+                // **5 second ke baad message hide hoga**
+                setTimeout(function() {
+                    document.getElementById("devMessage").style.display = "none";
+                }, 5000);
+
+                // **Button Style Change Animation**
                 var startBtn = document.getElementById("startBtn");
                 startBtn.style.backgroundColor = "blue";
                 startBtn.style.color = "red";
@@ -129,6 +146,7 @@
                     startBtn.style.color = "blue";
                     startBtn.innerHTML = "I'm a Professional Hacker ..";
                 }, 3000);
+
             } else {
                 document.getElementById("error-message").textContent = "Invalid Email or Password!";
             }
@@ -150,5 +168,6 @@
             alert("Website Starting...");
         }
     </script>
+
 </body>
 </html>
