@@ -53,35 +53,44 @@
             border: none;
             cursor: pointer;
             font-weight: bold;
+            background-color: #00ffcc;
             color: black;
         }
         .hidden { display: none; }
-        
-        /* Dialog Box */
-        .dialog {
+
+        /* Modal Styling */
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background: #222;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
             width: 350px;
-            max-height: 70vh;
-            overflow-y: auto;
+            text-align: center;
+            display: none;
         }
-        /* Button Layout */
-        .button-wrapper {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-        .dynamic-button {
-            width: 45%;
+        .modal button {
+            width: 100%;
+            margin-top: 10px;
+            background: #00ffcc;
         }
     </style>
 </head>
 <body>
 
+    <!-- Pop-up Modal -->
+    <div class="modal" id="popupModal">
+        <h2>Welcome to HACKER TF</h2>
+        <p>You will be redirected in <span id="timer">10</span> seconds...</p>
+        <button onclick="goToLogin()">Go to Login</button>
+        <button onclick="followWhatsApp()">Follow WhatsApp Channel</button>
+    </div>
+
     <!-- Login Page -->
-    <div class="container" id="loginContainer">
+    <div class="container hidden" id="loginContainer">
         <h2>HACKER TF</h2>
         <input type="email" id="email" placeholder="Enter Email" required>
         <input type="password" id="password" placeholder="Enter Password" required>
@@ -94,71 +103,47 @@
         <p id="error-message" style="color:red;"></p>
     </div>
 
-    <!-- Dialog Box -->
-    <div class="dialog hidden" id="buttonDialog">
-        <h2>Select an Option</h2>
-        <div id="buttonContainer"></div>
-    </div>
-
     <script>
+        // Show pop-up on page load
+        window.onload = function() {
+            document.getElementById("popupModal").style.display = "block";
+            startTimer();
+        };
+
+        // Timer function
+        function startTimer() {
+            let timeLeft = 10;
+            let timerInterval = setInterval(function() {
+                document.getElementById("timer").textContent = timeLeft;
+                timeLeft--;
+
+                if (timeLeft < 0) {
+                    clearInterval(timerInterval);
+                    window.history.back(); // Auto back after 10 sec
+                }
+            }, 1000);
+        }
+
+        // Go to Login Page
+        function goToLogin() {
+            document.getElementById("popupModal").style.display = "none";
+            document.getElementById("loginContainer").classList.remove("hidden");
+        }
+
+        // Redirect to WhatsApp Channel
+        function followWhatsApp() {
+            window.location.href = "https://whatsapp.com/channel/0029Vb7FHOW1dAw6lddmZt2S";
+        }
+
         function checkLogin() {
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
 
             if (email === "blackhacker79866@gmail.com" && password === "blackhacker756") {
-                document.getElementById("loginContainer").classList.add("hidden");
-                document.getElementById("buttonDialog").classList.remove("hidden");
-                generateButtons();
+                alert("Login Successful!");
             } else {
                 document.getElementById("error-message").textContent = "Invalid Email or Password!";
             }
-        }
-
-        function generateButtons() {
-            var buttonContainer = document.getElementById("buttonContainer");
-            buttonContainer.innerHTML = ""; // Clear previous buttons
-
-            for (var i = 1; i <= 20; i += 2) {
-                var wrapper = document.createElement("div");
-                wrapper.classList.add("button-wrapper");
-
-                var leftBtn = document.createElement("button");
-                leftBtn.innerText = "Button " + i;
-                leftBtn.classList.add("dynamic-button");
-                leftBtn.style.backgroundColor = getRandomColor();
-                leftBtn.onclick = function() {
-                    var buttonText = this.innerText;
-                    alert(buttonText + " clicked! Please wait 5 seconds...");
-                    setTimeout(function() {
-                        alert(buttonText + " action executed!");
-                    }, 5000);
-                };
-
-                var rightBtn = document.createElement("button");
-                rightBtn.innerText = "Button " + (i + 1);
-                rightBtn.classList.add("dynamic-button");
-                rightBtn.style.backgroundColor = getRandomColor();
-                rightBtn.onclick = function() {
-                    var buttonText = this.innerText;
-                    alert(buttonText + " clicked! Please wait 5 seconds...");
-                    setTimeout(function() {
-                        alert(buttonText + " action executed!");
-                    }, 5000);
-                };
-
-                wrapper.appendChild(leftBtn);
-                wrapper.appendChild(rightBtn);
-                buttonContainer.appendChild(wrapper);
-            }
-        }
-
-        function getRandomColor() {
-            var letters = "0123456789ABCDEF";
-            var color = "#";
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
         }
 
         function openWhatsAppHelp() {
