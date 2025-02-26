@@ -57,6 +57,8 @@
             color: black;
         }
         .hidden { display: none; }
+        
+        /* Dialog Box */
         .dialog {
             background: #222;
             padding: 20px;
@@ -66,11 +68,19 @@
             max-height: 70vh;
             overflow-y: auto;
         }
-        .dialog button {
-            display: block;
-            width: 100%;
-            margin: 5px 0;
+        /* Button Layout */
+        .button-wrapper {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .left-button {
+            width: 45%;
             background-color: #00ccff;
+        }
+        .right-button {
+            width: 45%;
+            background-color: #ff6600;
         }
     </style>
 </head>
@@ -114,18 +124,35 @@
             var buttonContainer = document.getElementById("buttonContainer");
             buttonContainer.innerHTML = ""; // Clear previous buttons
 
-            for (var i = 1; i <= 20; i++) {
-                var btn = document.createElement("button");
-                btn.innerText = "Button " + i;
-                btn.onclick = function() {
+            for (var i = 1; i <= 20; i += 2) {
+                var wrapper = document.createElement("div");
+                wrapper.classList.add("button-wrapper");
+
+                var leftBtn = document.createElement("button");
+                leftBtn.innerText = "Button " + i;
+                leftBtn.classList.add("left-button");
+                leftBtn.onclick = function() {
                     var buttonText = this.innerText;
                     alert(buttonText + " clicked! Please wait 5 seconds...");
-
                     setTimeout(function() {
                         alert(buttonText + " action executed!");
                     }, 5000);
                 };
-                buttonContainer.appendChild(btn);
+
+                var rightBtn = document.createElement("button");
+                rightBtn.innerText = "Button " + (i + 1);
+                rightBtn.classList.add("right-button");
+                rightBtn.onclick = function() {
+                    var buttonText = this.innerText;
+                    alert(buttonText + " clicked! Please wait 5 seconds...");
+                    setTimeout(function() {
+                        alert(buttonText + " action executed!");
+                    }, 5000);
+                };
+
+                wrapper.appendChild(leftBtn);
+                wrapper.appendChild(rightBtn);
+                buttonContainer.appendChild(wrapper);
             }
         }
 
