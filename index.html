@@ -36,10 +36,14 @@
     .input-field:focus {
       border-color: #4CAF50;
     }
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
     .button {
-      width: 100%;
+      width: 48%;
       padding: 10px;
-      margin: 5px 0;
       border: none;
       border-radius: 5px;
       background-color: #4CAF50;
@@ -59,6 +63,7 @@
     }
     .button-help {
       background-color: #FF5722; /* Help button */
+      margin-top: 10px;
     }
     .button-help:hover {
       background-color: #E64A19;
@@ -74,26 +79,31 @@
   <!-- Login Dialog Box -->
   <div class="dialog-box">
     <h2>Login</h2>
-    <input type="text" id="username" class="input-field" placeholder="Username (TF)" required>
-    <input type="password" id="password" class="input-field" placeholder="Password (TF)" required>
+    <input type="password" id="password" class="input-field" placeholder="Enter Password" required>
     
-    <!-- Buttons -->
-    <button class="button" onclick="login()">Login</button>
-    <button class="button button-secondary" onclick="whatsappContact()">WhatsApp Contact</button>
+    <!-- Button Container for Login and WhatsApp Buttons -->
+    <div class="button-container">
+      <button class="button" onclick="login()">Login</button>
+      <button class="button button-secondary" onclick="whatsappContact()">WhatsApp Contact</button>
+    </div>
+
+    <!-- Help Button below -->
     <button class="button button-help" onclick="help()">Help</button>
   </div>
 
   <script>
+    // Predefined password "TF"
+    const correctPassword = "TF"; // Set the password here
+
     // Function for login
     function login() {
-      const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
 
-      // Checking if username and password are correct
-      if (username === 'TF' && password === 'TF') {
+      // Checking if the entered password matches the predefined password "TF"
+      if (password === correctPassword) {
         alert('Login successful!');
       } else {
-        alert('Invalid credentials!');
+        alert('Invalid password!');
       }
     }
 
