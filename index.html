@@ -24,6 +24,13 @@
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
             width: 300px;
         }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 2px solid #00ffcc;
+        }
         h2 {
             font-size: 22px;
             font-weight: bold;
@@ -31,7 +38,15 @@
             color: #00ffcc;
             text-transform: uppercase;
         }
-        button {
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+        }
+        .button {
             display: block;
             width: 90%;
             margin: 8px auto;
@@ -43,6 +58,10 @@
             font-weight: bold;
             background-color: #00ffcc;
             color: black;
+            text-align: center;
+        }
+        .button:hover {
+            background-color: #00e6b8;
         }
         #darkModeToggle {
             background-color: #555;
@@ -61,26 +80,27 @@
 
     <!-- Login Page -->
     <div class="container" id="loginContainer">
+        <img src="profile.jpg" alt="Profile Image" class="profile-img">
         <h2 id="loginTitle">HACKER TF</h2>
         <input type="email" id="email" placeholder="Enter Email" required>
         <input type="password" id="password" placeholder="Enter Password" required>
-        <button id="loginBtn" onclick="checkLogin()">Login</button>
-        <button id="darkModeToggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+        <button class="button" onclick="checkLogin()">Login</button>
+        <button id="darkModeToggle" class="button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
         <p id="error-message" style="color:red;"></p>
     </div>
 
     <!-- Dialog Box (After Login) -->
     <div class="container hidden" id="dialogBox">
         <h2>Welcome To My Official Website...</h2>
-        <button onclick="startWhatsAppTimer()">WhatsApp Contact</button>
-        <button onclick="contactTelegram()">Telegram Contact</button>
-        <button id="startBtn" onclick="openDownloadDialog()">Start Website</button>
+        <button class="button" onclick="startWhatsAppTimer()">WhatsApp Contact</button>
+        <button class="button" onclick="contactTelegram()">Telegram Contact</button>
+        <button class="button" onclick="openDownloadDialog()">Start Website</button>
     </div>
 
     <!-- Download Dialog Box -->
     <div class="container hidden" id="downloadDialog">
         <h2>Download Your File</h2>
-        <button onclick="downloadFile()">Download File</button>
+        <button class="button" onclick="downloadFile()">Download File</button>
     </div>
 
     <script>
