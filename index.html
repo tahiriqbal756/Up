@@ -22,10 +22,10 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
-            width: 300px;
+            width: 350px;
         }
         h2 {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
             margin-bottom: 15px;
             color: #00ffcc;
@@ -40,108 +40,59 @@
             font-size: 14px;
             text-align: center;
         }
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
         button {
-            width: 48%;
+            width: 100%;
             padding: 10px;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 16px;
             border: none;
             cursor: pointer;
             font-weight: bold;
-            background-color: #00ffcc;
-            color: black;
+            margin-top: 10px;
+            transition: 0.3s;
         }
         .hidden { display: none; }
 
-        /* Modal Styling */
-        .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #222;
+        /* Palestine Message Styling */
+        .palestine {
+            background: #1d1d1d;
+            border-left: 5px solid #00ffcc;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
-            width: 350px;
-            text-align: center;
-            display: none;
+            animation: fadeIn 2s ease-in-out;
         }
-        .modal button {
-            width: 100%;
-            margin-top: 10px;
-            background: #00ffcc;
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Special Button Colors */
+        .btn-green { background-color: #00ffcc; color: black; }
+        .btn-red { background-color: #ff4444; color: white; }
     </style>
 </head>
 <body>
 
-    <!-- Pop-up Modal -->
-    <div class="modal" id="popupModal">
-        <h2>Welcome to HACKER TF</h2>
-        <p>You will be redirected in <span id="timer">10</span> seconds...</p>
-        <button onclick="goToLogin()">Go to Login</button>
-        <button onclick="followWhatsApp()">Follow WhatsApp Channel</button>
-    </div>
-
     <!-- Login Page -->
-    <div class="container hidden" id="loginContainer">
+    <div class="container" id="loginContainer">
         <h2>HACKER TF</h2>
         <input type="email" id="email" placeholder="Enter Email" required>
         <input type="password" id="password" placeholder="Enter Password" required>
-
-        <div class="button-container">
-            <button id="loginBtn" onclick="checkLogin()">Login</button>
-            <button id="helpBtn" onclick="openWhatsAppHelp()">Need Help?</button>
-        </div>
-
+        <button class="btn-green" onclick="checkLogin()">Login</button>
         <p id="error-message" style="color:red;"></p>
     </div>
 
     <!-- Palestine Support Message -->
-    <div class="container hidden" id="palestineMessage">
+    <div class="container hidden palestine" id="palestineMessage">
         <h2>🇵🇸 Free Palestine</h2>
-        <p>We stand with Palestine against oppression. Every voice matters! Stay informed and support the cause.</p>
-        <button onclick="continueToWebsite()">Continue to Website</button>
+        <p><strong>“Silence is betrayal.”</strong> - Martin Luther King Jr.</p>
+        <p>Every voice matters. Keep supporting Palestine and spreading awareness.</p>
+        <button class="btn-green" onclick="continueToWebsite()">Continue to Website</button>
+        <button class="btn-red" onclick="getLatestNews()">Get Palestine Updates</button>
     </div>
 
     <script>
-        // Show pop-up on page load
-        window.onload = function() {
-            document.getElementById("popupModal").style.display = "block";
-            startTimer();
-        };
-
-        // Timer function
-        function startTimer() {
-            let timeLeft = 10;
-            let timerInterval = setInterval(function() {
-                document.getElementById("timer").textContent = timeLeft;
-                timeLeft--;
-
-                if (timeLeft < 0) {
-                    clearInterval(timerInterval);
-                    window.history.back(); // Auto back after 10 sec
-                }
-            }, 1000);
-        }
-
-        // Go to Login Page
-        function goToLogin() {
-            document.getElementById("popupModal").style.display = "none";
-            document.getElementById("loginContainer").classList.remove("hidden");
-        }
-
-        // Redirect to WhatsApp Channel
-        function followWhatsApp() {
-            window.location.href = "https://whatsapp.com/channel/0029Vb7FHOW1dAw6lddmZt2S";
-        }
-
         function checkLogin() {
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
@@ -154,15 +105,12 @@
             }
         }
 
-        function openWhatsAppHelp() {
-            var encodedMessage = encodeURIComponent("Hello, I need help with login.");
-            var apiURL = `https://api.whatsapp.com/send?phone=923074565864&text=${encodedMessage}`;
-            window.open(apiURL, "_blank");
-        }
-
-        // Continue to Website After Palestine Message
         function continueToWebsite() {
             alert("Thank you for supporting Palestine!");
+        }
+
+        function getLatestNews() {
+            window.open("https://www.aljazeera.com/tag/palestine/", "_blank");
         }
     </script>
 
