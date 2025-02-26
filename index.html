@@ -24,14 +24,6 @@
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
             width: 300px;
         }
-        .profile-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid #00ffcc;
-            margin-bottom: 10px;
-            display: block; /* Ensure it is visible */
-        }
         h2 {
             font-size: 22px;
             font-weight: bold;
@@ -48,10 +40,13 @@
             font-size: 14px;
             text-align: center;
         }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
         button {
-            display: block;
-            width: 90%;
-            margin: 8px auto;
+            width: 48%;
             padding: 10px;
             border-radius: 5px;
             font-size: 14px;
@@ -69,12 +64,16 @@
 
     <!-- Login Page -->
     <div class="container" id="loginContainer">
-        <img src="profile.jpg" alt="Profile Image" class="profile-img">
         <h2>HACKER TF</h2>
         <input type="email" id="email" placeholder="Enter Email" required>
         <input type="password" id="password" placeholder="Enter Password" required>
-        <button id="loginBtn" onclick="checkLogin()">Login</button>
-        <button id="helpBtn" onclick="openWhatsAppHelp()">Need Help?</button>
+
+        <!-- Buttons in One Line -->
+        <div class="button-container">
+            <button id="loginBtn" onclick="checkLogin()">Login</button>
+            <button id="helpBtn" onclick="openWhatsAppHelp()">Need Help?</button>
+        </div>
+
         <p id="error-message" style="color:red;"></p>
     </div>
 
