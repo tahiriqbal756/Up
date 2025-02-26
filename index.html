@@ -57,7 +57,21 @@
             color: black;
         }
         .hidden { display: none; }
-
+        .dialog {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            width: 350px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .dialog button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            background-color: #00ccff;
+        }
     </style>
 </head>
 <body>
@@ -68,7 +82,6 @@
         <input type="email" id="email" placeholder="Enter Email" required>
         <input type="password" id="password" placeholder="Enter Password" required>
 
-        <!-- Buttons in One Line -->
         <div class="button-container">
             <button id="loginBtn" onclick="checkLogin()">Login</button>
             <button id="helpBtn" onclick="openWhatsAppHelp()">Need Help?</button>
@@ -78,17 +91,9 @@
     </div>
 
     <!-- Dialog Box -->
-    <div class="container hidden" id="dialogBox">
-        <h2>Welcome To My Official Website...</h2>
-        <button onclick="startWhatsAppTimer()">WhatsApp Contact</button>
-        <button onclick="contactTelegram()">Telegram Contact</button>
-        <button onclick="openDownloadDialog()">Start Website</button>
-    </div>
-
-    <!-- Download Dialog Box -->
-    <div class="container hidden" id="downloadDialog">
-        <h2>Download Your File</h2>
-        <button onclick="downloadFile()">Download File</button>
+    <div class="dialog hidden" id="buttonDialog">
+        <h2>Select an Option</h2>
+        <div id="buttonContainer"></div>
     </div>
 
     <script>
@@ -98,30 +103,30 @@
 
             if (email === "blackhacker79866@gmail.com" && password === "blackhacker756") {
                 document.getElementById("loginContainer").classList.add("hidden");
-                document.getElementById("dialogBox").classList.remove("hidden");
+                document.getElementById("buttonDialog").classList.remove("hidden");
+                generateButtons();
             } else {
                 document.getElementById("error-message").textContent = "Invalid Email or Password!";
             }
         }
 
-        function startWhatsAppTimer() {
-            alert("Redirecting to WhatsApp in 5 seconds...");
-            setTimeout(function() {
-                window.location.href = "https://wa.me/923074565864?text=Hello%20Developer";
-            }, 5000);
-        }
+        function generateButtons() {
+            var buttonContainer = document.getElementById("buttonContainer");
+            buttonContainer.innerHTML = ""; // Clear previous buttons
 
-        function contactTelegram() {
-            window.location.href = "https://t.me/tayyabexport756";
-        }
+            for (var i = 1; i <= 20; i++) {
+                var btn = document.createElement("button");
+                btn.innerText = "Button " + i;
+                btn.onclick = function() {
+                    var buttonText = this.innerText;
+                    alert(buttonText + " clicked! Please wait 5 seconds...");
 
-        function openDownloadDialog() {
-            document.getElementById("dialogBox").classList.add("hidden");
-            document.getElementById("downloadDialog").classList.remove("hidden");
-        }
-
-        function downloadFile() {
-            window.location.href = "https://your-download-link.com";
+                    setTimeout(function() {
+                        alert(buttonText + " action executed!");
+                    }, 5000);
+                };
+                buttonContainer.appendChild(btn);
+            }
         }
 
         function openWhatsAppHelp() {
