@@ -53,7 +53,6 @@
             border: none;
             cursor: pointer;
             font-weight: bold;
-            background-color: #00ffcc;
             color: black;
         }
         .hidden { display: none; }
@@ -74,13 +73,8 @@
             justify-content: space-between;
             margin-bottom: 5px;
         }
-        .left-button {
+        .dynamic-button {
             width: 45%;
-            background-color: #00ccff;
-        }
-        .right-button {
-            width: 45%;
-            background-color: #ff6600;
         }
     </style>
 </head>
@@ -130,7 +124,8 @@
 
                 var leftBtn = document.createElement("button");
                 leftBtn.innerText = "Button " + i;
-                leftBtn.classList.add("left-button");
+                leftBtn.classList.add("dynamic-button");
+                leftBtn.style.backgroundColor = getRandomColor();
                 leftBtn.onclick = function() {
                     var buttonText = this.innerText;
                     alert(buttonText + " clicked! Please wait 5 seconds...");
@@ -141,7 +136,8 @@
 
                 var rightBtn = document.createElement("button");
                 rightBtn.innerText = "Button " + (i + 1);
-                rightBtn.classList.add("right-button");
+                rightBtn.classList.add("dynamic-button");
+                rightBtn.style.backgroundColor = getRandomColor();
                 rightBtn.onclick = function() {
                     var buttonText = this.innerText;
                     alert(buttonText + " clicked! Please wait 5 seconds...");
@@ -154,6 +150,15 @@
                 wrapper.appendChild(rightBtn);
                 buttonContainer.appendChild(wrapper);
             }
+        }
+
+        function getRandomColor() {
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
         }
 
         function openWhatsAppHelp() {
