@@ -1,118 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - HACKER TF</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #121212;
-            color: white;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .container {
-            text-align: center;
-            background: #000;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
-            width: 350px;
-        }
-        h2 {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #00ffcc;
-            text-transform: uppercase;
-        }
-        input {
-            width: 90%;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            border: none;
-            font-size: 14px;
-            text-align: center;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-            transition: 0.3s;
-        }
-        .hidden { display: none; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .dialog-box {
+      width: 350px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .dialog-box h2 {
+      color: #4CAF50;
+    }
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+    }
+    .input-field:focus {
+      border-color: #4CAF50;
+    }
+    .button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
+    .button-secondary {
+      background-color: #25D366; /* WhatsApp color */
+    }
+    .button-secondary:hover {
+      background-color: #128C7E;
+    }
+    .button-help {
+      background-color: #FF5722; /* Help button */
+    }
+    .button-help:hover {
+      background-color: #E64A19;
+    }
 
-        /* Palestine Message Styling */
-        .palestine {
-            background: #1d1d1d;
-            border-left: 5px solid #00ffcc;
-            padding: 20px;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Special Button Colors */
-        .btn-green { background-color: #00ffcc; color: black; }
-        .btn-red { background-color: #ff4444; color: white; }
-    </style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
+  <!-- Login Dialog Box -->
+  <div class="dialog-box">
+    <h2>Login</h2>
+    <input type="text" id="username" class="input-field" placeholder="Username (TF)" required>
+    <input type="password" id="password" class="input-field" placeholder="Password (TF)" required>
+    
+    <!-- Buttons -->
+    <button class="button" onclick="login()">Login</button>
+    <button class="button button-secondary" onclick="whatsappContact()">WhatsApp Contact</button>
+    <button class="button button-help" onclick="help()">Help</button>
+  </div>
 
-    <!-- Login Page -->
-    <div class="container" id="loginContainer">
-        <h2>HACKER TF</h2>
-        <input type="email" id="email" placeholder="Enter Email" required>
-        <input type="password" id="password" placeholder="Enter Password" required>
-        <button class="btn-green" onclick="checkLogin()">Login</button>
-        <p id="error-message" style="color:red;"></p>
-    </div>
+  <script>
+    // Function for login
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
 
-    <!-- Palestine Support Message -->
-    <div class="container hidden palestine" id="palestineMessage">
-        <h2>🇵🇸 Free Palestine</h2>
-        <p><strong>“Silence is betrayal.”</strong> - Martin Luther King Jr.</p>
-        <p>Every voice matters. Keep supporting Palestine and spreading awareness.</p>
-        <button class="btn-green" onclick="continueToWebsite()">Continue to Website</button>
-        <button class="btn-red" onclick="getLatestNews()">Get Palestine Updates</button>
-    </div>
+      // Checking if username and password are correct
+      if (username === 'TF' && password === 'TF') {
+        alert('Login successful!');
+      } else {
+        alert('Invalid credentials!');
+      }
+    }
 
-    <script>
-        function checkLogin() {
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
+    // Function for WhatsApp Contact
+    function whatsappContact() {
+      const message = "Hello Brother, Kaise Ho Hacker TF Sir!";
+      const phoneNumber = "923321709972";
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    }
 
-            if (email === "blackhacker79866@gmail.com" && password === "blackhacker756") {
-                document.getElementById("loginContainer").classList.add("hidden");
-                document.getElementById("palestineMessage").classList.remove("hidden");
-            } else {
-                document.getElementById("error-message").textContent = "Invalid Email or Password!";
-            }
-        }
-
-        function continueToWebsite() {
-            alert("Thank you for supporting Palestine!");
-        }
-
-        function getLatestNews() {
-            window.open("https://www.aljazeera.com/tag/palestine/", "_blank");
-        }
-    </script>
-
+    // Function for Help button
+    function help() {
+      alert('Please contact us for help!');
+    }
+  </script>
 </body>
 </html>
