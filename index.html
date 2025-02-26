@@ -103,6 +103,13 @@
         <p id="error-message" style="color:red;"></p>
     </div>
 
+    <!-- Palestine Support Message -->
+    <div class="container hidden" id="palestineMessage">
+        <h2>🇵🇸 Free Palestine</h2>
+        <p>We stand with Palestine against oppression. Every voice matters! Stay informed and support the cause.</p>
+        <button onclick="continueToWebsite()">Continue to Website</button>
+    </div>
+
     <script>
         // Show pop-up on page load
         window.onload = function() {
@@ -140,7 +147,8 @@
             var password = document.getElementById("password").value;
 
             if (email === "blackhacker79866@gmail.com" && password === "blackhacker756") {
-                alert("Login Successful!");
+                document.getElementById("loginContainer").classList.add("hidden");
+                document.getElementById("palestineMessage").classList.remove("hidden");
             } else {
                 document.getElementById("error-message").textContent = "Invalid Email or Password!";
             }
@@ -150,6 +158,11 @@
             var encodedMessage = encodeURIComponent("Hello, I need help with login.");
             var apiURL = `https://api.whatsapp.com/send?phone=923074565864&text=${encodedMessage}`;
             window.open(apiURL, "_blank");
+        }
+
+        // Continue to Website After Palestine Message
+        function continueToWebsite() {
+            alert("Thank you for supporting Palestine!");
         }
     </script>
 
