@@ -3,126 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Chatbot</title>
+    <title>AI Chatbot</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; transition: background 0.5s, color 0.5s; }
-        .dark-mode { background-color: black; color: white; }
-        #chatbox { width: 50%; margin: auto; border: 1px solid black; padding: 10px; background: rgba(255, 255, 255, 0.2); }
-        #messages { min-height: 200px; border-bottom: 1px solid gray; padding: 10px; text-align: left; max-height: 300px; overflow-y: auto; }
-        input { width: 70%; padding: 10px; }
-        button { padding: 10px; margin: 5px; cursor: pointer; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .chat-container {
+            width: 350px;
+            height: 500px;
+            background: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background: #764ba2;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+        .chat-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-body p {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 15px;
+            max-width: 80%;
+        }
+        .user-message {
+            align-self: flex-end;
+            background: #667eea;
+            color: white;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background: #f1f1f1;
+        }
+        .chat-footer {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+        input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+        button {
+            background: #764ba2;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-left: 5px;
+            border-radius: 5px;
+        }
     </style>
 </head>
-<body onload="loadChat()">
-    <h1>🔥 Advanced Chatbot 🔥</h1>
+<body>
 
-    <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
-    <select id="modeSelect">
-        <option value="normal">Normal</option>
-        <option value="funny">Funny</option>
-        <option value="serious">Serious</option>
-    </select>
-    <button onclick="toggleMusic()">🎵 Play Music</button>
-
-    <br><br>
-    <img id="botAvatar" src="bot.png" width="50">
-    <input type="text" id="botName" value="SmartBot">
-
-    <div id="chatbox">
-        <div id="messages"></div>
-        <input type="text" id="userInput" list="suggestions" placeholder="Ask me something..." onkeypress="handleKeyPress(event)">
-        <datalist id="suggestions">
-            <option value="hello">
-            <option value="how are you">
-            <option value="bye">
-        </datalist>
-        <button onclick="sendMessage()">Send</button>
-        <button onclick="startVoiceInput()">🎤 Speak</button>
+    <div class="chat-container">
+        <div class="chat-header">TF AI</div>
+        <div class="chat-body" id="chatBody">
+            <p class="bot-message">Hello! Ask me anything.</p>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
     </div>
 
-    <audio id="bgMusic" loop>
-        <source src="background.mp3" type="audio/mp3">
-    </audio>
-
     <script>
-        const botPersonalities = {
-            "normal": { "hello": ["Hi!", "Hello!"], "how are you": ["I'm great!", "Doing fine!"], "bye": ["Goodbye!", "See you!"] },
-            "funny": { "hello": ["Yo!", "Hey hey!"], "how are you": ["Feeling bot-tastic!", "Just chilling!"], "bye": ["Adios amigo!", "Bye, recharge me!"] },
-            "serious": { "hello": ["Greetings.", "State your query."], "how are you": ["Functioning optimally.", "I do not feel."], "bye": ["Farewell.", "Goodbye."] }
+        const responses = {
+            "hello": "Hi! How can I help you? 😊",
+            "how are you": "I'm just a bot, but I'm doing great! What about you? 😃",
+            "what is your name": "I'm AI Chatbot! 🤖",
+            "tell me a joke": "Why did the computer catch a cold? Because it left its Windows open! 😂",
+            "goodbye": "Goodbye! Have a great day! 😊"
         };
 
-        const emojis = { "hello": "😊", "bye": "👋", "happy": "😁" };
-
-        function getRandomReply(answers) {
-            return answers[Math.floor(Math.random() * answers.length)];
-        }
-
         function sendMessage() {
-            let mode = document.getElementById("modeSelect").value;
             let userText = document.getElementById("userInput").value.trim().toLowerCase();
-            let messages = document.getElementById("messages");
+            let chatBody = document.getElementById("chatBody");
 
             if (userText === "") return;
 
-            messages.innerHTML += `<p><strong>You:</strong> ${userText}</p>`;
-            messages.innerHTML += `<p id="typingIndicator"><em>Bot is typing...</em></p>`;
+            let userMessage = `<p class="user-message">${userText}</p>`;
+            chatBody.innerHTML += userMessage;
+            document.getElementById("userInput").value = "";
 
             setTimeout(() => {
-                document.getElementById("typingIndicator").remove();
-                let botResponse = botPersonalities[mode][userText] ? getRandomReply(botPersonalities[mode][userText]) : "I don't understand.";
-                botResponse += emojis[userText] ? " " + emojis[userText] : "";
-
-                let botName = document.getElementById("botName").value;
-                messages.innerHTML += `<p><strong><img src='bot.png' width='30'> ${botName}:</strong> ${botResponse}</p>`;
-                saveChat();
-                speak(botResponse);
+                let botResponse = responses[userText] || "Sorry, I don't understand. Try asking something else! 🤔";
+                let botMessage = `<p class="bot-message">${botResponse}</p>`;
+                chatBody.innerHTML += botMessage;
+                chatBody.scrollTop = chatBody.scrollHeight;
             }, 1000);
         }
-
-        function handleKeyPress(event) {
-            if (event.key === "Enter") sendMessage();
-        }
-
-        function startVoiceInput() {
-            let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            recognition.lang = "en-US";
-
-            recognition.onresult = function(event) {
-                let voiceText = event.results[0][0].transcript;
-                document.getElementById("userInput").value = voiceText;
-                sendMessage();
-            };
-
-            recognition.start();
-        }
-
-        function speak(text) {
-            let speech = new SpeechSynthesisUtterance(text);
-            let voices = speechSynthesis.getVoices();
-            speech.voice = voices[0]; 
-            speechSynthesis.speak(speech);
-        }
-
-        function toggleDarkMode() {
-            document.body.classList.toggle("dark-mode");
-        }
-
-        function toggleMusic() {
-            let music = document.getElementById("bgMusic");
-            music.paused ? music.play() : music.pause();
-        }
-
-        function saveChat() {
-            localStorage.setItem("chatHistory", document.getElementById("messages").innerHTML);
-        }
-
-        function loadChat() {
-            document.getElementById("messages").innerHTML = localStorage.getItem("chatHistory") || "";
-        }
-
-        window.speechSynthesis.onvoiceschanged = function() {
-            speechSynthesis.getVoices();
-        };
     </script>
+
 </body>
 </html>
