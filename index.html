@@ -3,29 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Chat UI</title>
+    <title>Chatbot</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; background: #f4f4f4; }
-        .chat-box { width: 90%; max-width: 400px; margin: auto; background: white; padding: 10px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
-        .messages { height: 300px; overflow-y: auto; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
-        .message { padding: 5px; margin: 5px; border-radius: 5px; }
-        .user { background: #4CAF50; color: white; text-align: right; }
-        .other { background: #ddd; text-align: left; }
-        input, button { padding: 10px; margin-top: 5px; }
+        /* Same CSS as before */
     </style>
 </head>
 <body>
-
-    <div class="chat-box">
-        <h2>Live Chat (Static UI)</h2>
-        <div class="messages" id="messages">
-            <p class="message other">Ali: Hello!</p>
-            <p class="message user">You: Hi there!</p>
+    <div class="chat-container">
+        <div class="chat-header">
+            Chatbot
         </div>
-        <input type="text" id="messageInput" placeholder="Type a message..." disabled>
-        <button disabled>Send</button>
-        <p style="color: red;">(This is just a UI demo, real chat needs a backend!)</p>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will appear here -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
     </div>
 
+    <script>
+        // OpenAI API details
+        const API_URL = "https://api.openai.com/v1/chat/completions";
+        const API_KEY = "Apsk-or-v1-75453dcf50c942f456d3c52a299739a1a38e85df3712d5a18f357bc04a5ebc06"; // Apna OpenAI API key yahan dalo
+
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput) return;
+
+            addMessage('user', userInput);
+            document.getElementById('user-input').value = '';
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-3.5-turbo",
+                        messages: [
+                            { role: "system", content: "You are a helpful assistant." },
+                            { role: "user", content: userInput }
+                        ]
+                    })
+                });
+
+                const data = await response.json();
+                const botResponse = data.choices[0].message.content;
+                addMessage('bot', botResponse);
+            } catch (error) {
+                console.error("Error:", error);
+                addMessage('bot', "Error: Could not get a response from the bot.");
+            }
+        }
+
+        function addMessage(sender, message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', sender);
+            messageElement.innerHTML = `<p>${message}</p>`;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
 </body>
 </html>
