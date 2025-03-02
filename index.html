@@ -3,123 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chatbot</title>
+    <title>Live Chat UI</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-        }
-        .chat-container {
-            width: 350px;
-            height: 500px;
-            background: white;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        .chat-header {
-            background: #764ba2;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 18px;
-        }
-        .chat-body {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-        .chat-body p {
-            margin-bottom: 10px;
-            padding: 8px 12px;
-            border-radius: 15px;
-            max-width: 80%;
-        }
-        .user-message {
-            align-self: flex-end;
-            background: #667eea;
-            color: white;
-        }
-        .bot-message {
-            align-self: flex-start;
-            background: #f1f1f1;
-        }
-        .chat-footer {
-            display: flex;
-            padding: 10px;
-            border-top: 1px solid #ddd;
-        }
-        input {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            outline: none;
-        }
-        button {
-            background: #764ba2;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            margin-left: 5px;
-            border-radius: 5px;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; background: #f4f4f4; }
+        .chat-box { width: 90%; max-width: 400px; margin: auto; background: white; padding: 10px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+        .messages { height: 300px; overflow-y: auto; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+        .message { padding: 5px; margin: 5px; border-radius: 5px; }
+        .user { background: #4CAF50; color: white; text-align: right; }
+        .other { background: #ddd; text-align: left; }
+        input, button { padding: 10px; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-    <div class="chat-container">
-        <div class="chat-header">TF AI</div>
-        <div class="chat-body" id="chatBody">
-            <p class="bot-message">Hello! Ask me anything.</p>
+    <div class="chat-box">
+        <h2>Live Chat (Static UI)</h2>
+        <div class="messages" id="messages">
+            <p class="message other">Ali: Hello!</p>
+            <p class="message user">You: Hi there!</p>
         </div>
-        <div class="chat-footer">
-            <input type="text" id="userInput" placeholder="Type your message...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
+        <input type="text" id="messageInput" placeholder="Type a message..." disabled>
+        <button disabled>Send</button>
+        <p style="color: red;">(This is just a UI demo, real chat needs a backend!)</p>
     </div>
-
-    <script>
-        const responses = {
-            "hello": "Hi! How can I help you? 😊",
-            "how are you": "I'm just a bot, but I'm doing great! What about you? 😃",
-            "what is your name": "I'm AI Chatbot! 🤖",
-            "tell me a joke": "Why did the computer catch a cold? Because it left its Windows open! 😂",
-            "goodbye": "Goodbye! Have a great day! 😊"
-        };
-
-        function sendMessage() {
-            let userText = document.getElementById("userInput").value.trim().toLowerCase();
-            let chatBody = document.getElementById("chatBody");
-
-            if (userText === "") return;
-
-            let userMessage = `<p class="user-message">${userText}</p>`;
-            chatBody.innerHTML += userMessage;
-            document.getElementById("userInput").value = "";
-
-            setTimeout(() => {
-                let botResponse = responses[userText] || "Sorry, I don't understand. Try asking something else! 🤔";
-                let botMessage = `<p class="bot-message">${botResponse}</p>`;
-                chatBody.innerHTML += botMessage;
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }, 1000);
-        }
-    </script>
 
 </body>
 </html>
