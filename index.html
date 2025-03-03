@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Animated Dialog</title>
+    <title>Ultimate 3D Animated Dialog</title>
     <style>
-        /* Body - Animated Background */
+        /* Animated Background */
         body {
             font-family: 'Arial', sans-serif;
             background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffeb, #0059ff, #9000ff, #ff00c8);
@@ -26,7 +26,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Dialog Box - Ultra 3D Animation */
+        /* 3D Dialog Box */
         .dialog-container {
             position: absolute;
             width: 400px;
@@ -35,103 +35,29 @@
             border-radius: 15px;
             box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
             text-align: center;
-            transform: perspective(800px) rotateX(-90deg) scale(0.5);
+            transform: perspective(1000px) rotateY(90deg) scale(0.5);
             opacity: 0;
-            transition: transform 1s ease, opacity 0.8s ease;
+            transition: transform 1s ease-in-out, opacity 0.8s ease-in-out;
         }
 
         .dialog-container.show {
-            transform: perspective(800px) rotateX(0deg) scale(1);
+            transform: perspective(1000px) rotateY(0deg) scale(1);
             opacity: 1;
         }
 
-        /* Stylish Heading with Animation */
+        /* Neon Text Animation */
         h2 {
             font-size: 2rem;
             text-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff;
-            animation: pulseText 2s infinite;
+            animation: neonGlow 1.5s infinite alternate;
         }
 
-        @keyframes pulseText {
-            0% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
-            50% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff; }
-            100% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
+        @keyframes neonGlow {
+            from { text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
+            to { text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff; }
         }
 
-        /* Input Box */
-        input {
-            width: 90%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 2px solid #0ff;
-            background: transparent;
-            color: white;
-            font-size: 1.2rem;
-            text-align: center;
-            margin-bottom: 15px;
-            box-shadow: 0 0 15px #0ff;
-        }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Animated Dialog</title>
-    <style>
-        /* Body - Animated Background */
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffeb, #0059ff, #9000ff, #ff00c8);
-            background-size: 400% 400%;
-            animation: gradientBG 6s linear infinite;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Dialog Box - Ultra 3D Animation */
-        .dialog-container {
-            position: absolute;
-            width: 400px;
-            background: rgba(20, 20, 20, 0.95);
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
-            text-align: center;
-            transform: perspective(800px) rotateX(-90deg) scale(0.5);
-            opacity: 0;
-            transition: transform 1s ease, opacity 0.8s ease;
-        }
-
-        .dialog-container.show {
-            transform: perspective(800px) rotateX(0deg) scale(1);
-            opacity: 1;
-        }
-
-        /* Stylish Heading with Animation */
-        h2 {
-            font-size: 2rem;
-            text-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff;
-            animation: pulseText 2s infinite;
-        }
-
-        @keyframes pulseText {
-            0% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
-            50% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff; }
-            100% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
-        }
-
-        /* Input Box */
+        /* Input Field */
         input {
             width: 90%;
             padding: 12px;
@@ -149,7 +75,7 @@
             color: #ccc;
         }
 
-        /* Ultra Animated Buttons */
+        /* Animated Buttons */
         .button {
             padding: 12px 30px;
             margin: 10px;
@@ -161,26 +87,15 @@
             color: #fff;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffeb, #0059ff, #9000ff, #ff00c8);
+            animation: rainbowButton 3s infinite alternate;
         }
 
-        /* Color Changing Button Animation */
-        .button::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 300%;
-            height: 100%;
-            background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffeb, #0059ff, #9000ff, #ff00c8);
-            animation: moveGradient 3s linear infinite;
-        }
-
-        @keyframes moveGradient {
-            0% { left: -100%; }
-            50% { left: 100%; }
-            100% { left: -100%; }
+        @keyframes rainbowButton {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
         }
 
         .button:hover {
