@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIM Info</title>
+    <title>Ultimate Animated Dialog</title>
     <style>
-        /* Body Styling */
+        /* Body - Animated Background */
         body {
             font-family: 'Arial', sans-serif;
             background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffeb, #0059ff, #9000ff, #ff00c8);
             background-size: 400% 400%;
-            animation: gradientBG 8s ease infinite;
+            animation: gradientBG 6s linear infinite;
             color: #fff;
             display: flex;
             justify-content: center;
@@ -26,29 +26,36 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Dialog Box */
+        /* Dialog Box - Ultra 3D Animation */
         .dialog-container {
             position: absolute;
             width: 400px;
             background: rgba(20, 20, 20, 0.95);
             padding: 25px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
             text-align: center;
-            transform: perspective(800px) rotateY(90deg);
+            transform: perspective(800px) rotateX(-90deg) scale(0.5);
             opacity: 0;
-            transition: transform 0.8s ease, opacity 0.5s ease;
+            transition: transform 1s ease, opacity 0.8s ease;
         }
 
         .dialog-container.show {
-            transform: perspective(800px) rotateY(0deg);
+            transform: perspective(800px) rotateX(0deg) scale(1);
             opacity: 1;
         }
 
-        /* Heading */
+        /* Stylish Heading with Animation */
         h2 {
             font-size: 2rem;
-            text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+            text-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff;
+            animation: pulseText 2s infinite;
+        }
+
+        @keyframes pulseText {
+            0% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
+            50% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff; }
+            100% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
         }
 
         /* Input Box */
@@ -69,7 +76,7 @@
             color: #ccc;
         }
 
-        /* Animated Buttons */
+        /* Ultra Animated Buttons */
         .button {
             padding: 12px 30px;
             margin: 10px;
@@ -81,11 +88,11 @@
             color: #fff;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Button Gradient Animation */
+        /* Color Changing Button Animation */
         .button::before {
             content: "";
             position: absolute;
@@ -105,7 +112,7 @@
 
         .button:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 1);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 1);
         }
 
         /* Open Dialog Button */
@@ -116,14 +123,14 @@
             border-radius: 50px;
             font-size: 1.3rem;
             cursor: pointer;
-            box-shadow: 0 0 20px #0ff;
+            box-shadow: 0 0 30px #0ff;
             transition: all 0.3s ease;
         }
 
         .open-dialog:hover {
             background: #121212;
             color: #0ff;
-            box-shadow: 0 0 30px #0ff;
+            box-shadow: 0 0 40px #0ff;
         }
     </style>
 </head>
