@@ -8,7 +8,9 @@
         /* Body Styling */
         body {
             font-family: 'Arial', sans-serif;
-            background: #1b1b1b;
+            background: linear-gradient(45deg, #1b1b1b, #0ff, #ff00ff);
+            background-size: 400% 400%;
+            animation: gradientBG 6s infinite alternate;
             margin: 0;
             padding: 0;
             display: flex;
@@ -20,13 +22,25 @@
             overflow: hidden;
         }
 
+        /* 3D Animated Gradient Background */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
         /* Neon Glow Text */
         h1 {
             font-size: 3rem;
             color: #fff;
             text-align: center;
             margin-bottom: 20px;
-            text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #ff00ff;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { text-shadow: 0 0 5px #0ff, 0 0 10px #ff00ff; }
+            to { text-shadow: 0 0 20px #0ff, 0 0 40px #ff00ff; }
         }
 
         /* Dialog Box */
@@ -36,8 +50,14 @@
             border-radius: 15px;
             text-align: center;
             width: 350px;
-            box-shadow: 0px 0px 20px #0ff;
-            animation: fadeIn 1s ease-in-out;
+            box-shadow: 0px 0px 30px #ff00ff;
+            animation: float 3s infinite alternate;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes float {
+            from { transform: translateY(5px) rotateX(10deg) rotateY(-10deg); }
+            to { transform: translateY(-5px) rotateX(-10deg) rotateY(10deg); }
         }
 
         /* Input Field */
@@ -52,19 +72,21 @@
             width: 90%;
             text-align: center;
             margin-bottom: 10px;
+            box-shadow: 0 0 15px #ff00ff;
         }
 
         /* Button Styling */
         .button {
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: 2px solid #0ff;
-            background-color: #1e1e1e;
-            color: #0ff;
+            background: linear-gradient(45deg, #ff00ff, #0ff);
+            color: #fff;
             font-size: 1rem;
             cursor: pointer;
             border-radius: 5px;
             transition: 0.3s;
-            box-shadow: 0 0 10px #0ff;
+            box-shadow: 0 0 15px #0ff;
+            animation: glow 1.5s infinite alternate;
             margin-top: 10px;
         }
 
@@ -72,6 +94,24 @@
             background-color: #0ff;
             color: #1e1e1e;
             box-shadow: 0 0 20px #0ff;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px #0ff; }
+            to { box-shadow: 0 0 25px #ff00ff; }
+        }
+
+        /* Voice Input Button */
+        .voice-button {
+            background: #ff4500;
+            border: 2px solid #fff;
+            color: white;
+            padding: 12px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px #ff4500;
+            animation: glow 1s infinite alternate;
         }
 
         /* WhatsApp Button */
@@ -99,11 +139,6 @@
             color: #0ff;
             text-shadow: 0 0 10px #0ff;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
     </style>
 </head>
 <body>
@@ -112,6 +147,10 @@
 
     <div class="dialog-box">
         <input type="text" id="phone-number" placeholder="Enter phone number" />
+        
+        <!-- Voice Input Button -->
+        <button class="voice-button" onclick="startVoiceInput()">🎤</button>
+
         <button class="button" onclick="fetchSimDetails()">Get SIM Info</button>
         <a class="whatsapp-button" href="https://wa.me/923259421220" target="_blank">Contact on WhatsApp</a>
         
@@ -138,6 +177,19 @@
             } catch (error) {
                 alert("Error fetching data.");
             }
+        }
+
+        // Function for Voice Input
+        function startVoiceInput() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('phone-number').value = transcript;
+            };
+            
+            recognition.start();
         }
     </script>
 
